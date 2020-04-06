@@ -2,11 +2,14 @@ body{
     margin: auto;
 }
 
-header{
+*{
     ul{
         padding: 0;
         list-style: none;
     }
+}
+
+header{
     display: grid;
     grid-template-columns: repeat(3, auto);
     #left{
@@ -32,6 +35,10 @@ header{
             display: block;
         }
     }
+}
+
+#errors{
+    color: red;
 }
 
 footer{

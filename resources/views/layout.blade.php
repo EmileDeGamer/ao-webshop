@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel</title>
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <script defer src="{{asset('js/accounts.js')}}"></script>
     </head>
     <body>
         <header>

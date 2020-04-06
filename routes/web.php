@@ -20,3 +20,7 @@ Route::post('/addToCart', 'CartController@addProductToCart');
 Route::post('/deleteFromCart', 'CartController@removeProductFromCart');
 Route::get('/cart', 'CartController@showCart');
 Route::post('/editCart', 'CartController@editProductAmountInCart');
+Route::get('/register', 'UserController@indexRegister');
+Route::get('/login', 'UserController@indexLogin');
+Route::post('/register', 'UserController@register');
+Route::post('/login', 'UserController@login');

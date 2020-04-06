@@ -2,16 +2,16 @@ body {
   margin: auto;
 }
 
+* ul {
+  padding: 0;
+  list-style: none;
+}
+
 header {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (auto)[3];
       grid-template-columns: repeat(3, auto);
-}
-
-header ul {
-  padding: 0;
-  list-style: none;
 }
 
 header #left {
@@ -42,6 +42,10 @@ header #right #cartItems {
 
 header #right #cart:hover #cartItems {
   display: block;
+}
+
+#errors {
+  color: red;
 }
 
 footer {
