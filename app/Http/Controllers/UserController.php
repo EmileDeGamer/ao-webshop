@@ -83,6 +83,7 @@ class UserController extends Controller
             $request->session()->forget('customer');
             $request->session()->forget('cart');
             $request->session()->forget('cartCost');
+            $request->session()->forget('orders');
             return redirect('login');
         }
         else{

@@ -25,3 +25,4 @@ Route::get('/login', 'UserController@indexLogin');
 Route::post('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
 Route::get('/logout', 'UserController@logout');
+Route::post('/placeOrder', 'CartController@placeOrder');

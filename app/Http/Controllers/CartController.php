@@ -13,6 +13,21 @@ class CartController extends Controller
         if($request->session()->has('customer')){
             $request->session()->put('cart', []);
             $request->session()->put('cartCost', 0);
+            $orders = \DB::table('orders')->select('ordered_products.orderedProduct', 'ordered_products.orderedAmount', 'orders.orderedPrice')->join('ordered_products', 'ordered_products.orderID', '=', 'orders.orderID')->where('orders.orderedUser', '=', $request->session()->get('customer')['name'])->get();
+            $orderedPrices = \DB::table('orders')->select('orderedPrice')->where('orderedUser', '=', $request->session()->get('customer')['name'])->get();
+            for ($i=0; $i < count($orderedPrices); $i++) {
+                if(!isset($orderedPrices[$i]->orders)){
+                    $orderedPrices[$i]->orders = array();
+                }
+                $selectedOrders = [];
+                for ($x=0; $x < count($orders); $x++) {
+                    if($orders[$x]->orderedPrice === $orderedPrices[$i]->orderedPrice){
+                        array_push($selectedOrders, $orders[$x]);
+                    }
+                }
+                array_push($orderedPrices[$i]->orders, $selectedOrders);
+            }
+            $request->session()->put('orders', $orderedPrices);
         }
         else{
             return redirect('login');
@@ -94,6 +109,25 @@ class CartController extends Controller
     public function showCart(Request $request){
         if($request->session()->has('customer')){
             return view('cart');
+        }
+        else{
+            return redirect('login');;
+        }
+    }
+
+    public function placeOrder(Request $request){
+        if($request->session()->has('customer')){
+            if(count($request->session()->get('cart')) > 0){
+                $inserted = \DB::table('orders')->insertGetId(['orderedUser'=>$request->session()->get('customer')['name'], 'orderedPrice'=>$request->session()->get('cartCost')]);
+                for ($i=0; $i < count($request->session()->get('cart')); $i++) {
+                    \DB::table('ordered_products')->insert(['orderedProduct'=>$request->session()->get('cart')[$i]->productName,'orderedAmount'=>$request->session()->get('cart')[$i]->amount,'orderID'=>$inserted]);
+                }
+                $this->createCart($request);
+                return redirect('/');
+            }
+            else{
+                return redirect('/');
+            }
         }
         else{
             return redirect('login');;

@@ -38,7 +38,29 @@
                 <td>
                     Totaal: €{{Session::get('cartCost')}}
                 </td>
+                <td>
+                    <form action='/placeOrder' method='post'>
+                        @csrf
+                        <button type='submit'>Place Order</button>
+                    </form>
+                </td>
             </tr>
         @endif
     </table>
+    @if(Session::has('orders'))
+        <ul>
+            <?php
+                $orders = Session::get('orders');
+                for ($i=0; $i < count($orders); $i++) {
+                    var_dump($orders[$i]->orderedPrice);
+                    echo "<br>";
+                    for ($x=0; $x < count($orders[$i]->orders); $x++) {
+                        echo "<li>";
+                            var_dump($orders[$i]->orders[$x]);
+                        echo "</li>";
+                    }
+                }
+            ?>
+        </ul>
+    @endif
 @endsection
