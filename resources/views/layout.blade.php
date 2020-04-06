@@ -22,7 +22,7 @@
                             <?php
                                 $cart = Session::get('cart');
                                 for ($i=0; $i < count($cart); $i++) {
-                                    echo "<li>".$cart[$i]->productName.":".$cart[$i]->amount."</li>";
+                                    echo "<li>".$cart[$i]->productName.":".$cart[$i]->amount."</li><form action='/deleteFromCart' method='post'>";?>@csrf<?php echo"<input type='hidden' name='productName' value='".$cart[$i]->productName."'><button type='submit'>X</button></form>";
                                 }
                             ?>
                         @endif

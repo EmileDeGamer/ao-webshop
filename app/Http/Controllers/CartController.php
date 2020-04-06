@@ -44,9 +44,16 @@ class CartController extends Controller
         $request->session()->put('cartCost', $cost);
     }
 
-    public function removeProductFromCart($product, $amount = 1){
-        unset($this->products[$product]);
-        $request->session()->put('cart', $this->products);
+    public function removeProductFromCart(Request $request){
+        $products = $request->session()->get('cart');
+        for ($i=0; $i < count($products); $i++) {
+            if($products[$i]->productName === $request->input('productName')){
+                array_splice($products, $i, 1);
+            }
+        }
+        $request->session()->put('cart', $products);
+        $this->calculateCartValue($request);
+        return back();
     }
 
     public function editProductAmountInCart($product, $amount = 1){
