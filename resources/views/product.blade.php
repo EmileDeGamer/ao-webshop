@@ -8,13 +8,14 @@
     <body>
         <table>
             <tr>
-                <?php
-
-                ?>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
             </tr>
-                <?php
-
-                ?>
+            <tr>
+                <td>{{$product->productName}}</td>
+                <td>{{$product->productPrice}}</td>
+                <td>{{$product->productCategory}}</td>
             </tr>
         </table>
     </body>

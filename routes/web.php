@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'CartController@createCart');
 Route::get('/categories', 'CategoryController@getCategoriesAndProducts');
+Route::post('/showProduct', 'ProductsController@showProduct');

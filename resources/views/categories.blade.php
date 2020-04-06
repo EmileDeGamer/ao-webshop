@@ -27,18 +27,22 @@
                             }
                         }
                     echo"</select></form></th>";
-                ?>
-            </tr>
-                <?php
                     if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         if(isset($_GET['category'])){
                             $category = $_GET['category'];
-                            for ($i=0; $i < count($products); $i++) {
-                                if($products[$i]->productCategory === $category){
-                                    echo"<tr>";
-                                        echo"<td>".$products[$i]->productName."</td>";
-                                    echo"</tr>";
-                                }
+                        }
+                    }
+                    if(isset($category)){
+                        for ($i=0; $i < count($products); $i++) {
+                            if($products[$i]->productCategory === $category){
+                                echo"<tr>";
+                                    echo"<td>";
+                                        echo"<form id=".$products[$i]->productName." method='post' action='/showProduct'>";
+                                            ?>@csrf<?php
+                                            echo "<button name='productName' value=".$products[$i]->productName." onclick='if(this.value != 0) { this.form.submit() }'>".$products[$i]->productName."</button>";
+                                        echo "</form>";
+                                    echo"</td>";
+                                echo"</tr>";
                             }
                         }
                     }
