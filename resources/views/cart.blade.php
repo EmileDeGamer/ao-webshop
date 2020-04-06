@@ -49,6 +49,7 @@
     </table>
     @if(Session::has('orders'))
         <ul>
+            Orders: <br>
             <?php
                 $orders = Session::get('orders');
                 for ($i=0; $i < count($orders); $i++) {
