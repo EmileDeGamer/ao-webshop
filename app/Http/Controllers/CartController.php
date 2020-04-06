@@ -60,4 +60,8 @@ class CartController extends Controller
         $this->products[$product]->amount = $amount;
         $request->session()->put('cart', $this->products);
     }
+
+    public function showCart(Request $request){
+        return view('cart');
+    }
 }

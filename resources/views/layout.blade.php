@@ -15,7 +15,7 @@
 
             </ul>
             <ul id="right">
-                <div id="cart">
+                <a href="/cart" id="cart">
                     Cart
                     <ul id="cartItems">
                         @if(Session::has('cart'))
@@ -33,7 +33,7 @@
                             ?>
                         @endif
                     </ul>
-                </div>
+                </a>
             </ul>
         </header>
         @yield('content')

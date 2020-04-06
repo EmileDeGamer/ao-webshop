@@ -18,3 +18,4 @@ Route::get('/categories', 'CategoryController@getCategoriesAndProducts');
 Route::post('/showProduct', 'ProductsController@showProduct');
 Route::post('/addToCart', 'CartController@addProductToCart');
 Route::post('/deleteFromCart', 'CartController@removeProductFromCart');
+Route::get('/cart', 'CartController@showCart');
