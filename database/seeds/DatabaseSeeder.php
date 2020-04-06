@@ -11,8 +11,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i < 5; $i++) {
+        $categories = ['eten', 'drinken', 'groente', 'fruit', 'extraatje'];
+        for ($i=0; $i < 150; $i++) {
             $this->call(ProductsSeeder::class);
+        }
+
+        for ($i=0; $i < count($categories); $i++) {
+            $this->call(CategorySeeder::class, $categories[$i]);
+        }
+    }
+
+    public function call($class, $extra = null){
+        $this->resolve($class)->run($extra);
+
+        if(isset($this->command)){
+            $this->command->getOutput()->writeln("<info>Seeded:</info> $class");
         }
     }
 }

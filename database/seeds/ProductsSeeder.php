@@ -13,8 +13,8 @@ class ProductsSeeder extends Seeder
     {
         DB::table('products')->insert([
             'productName' => Str::random(10),
-            'productPrice' => rand(5, 15),
-            'productCategory' => Str::random(10),
+            'productPrice' => rand(1, 150),
+            'productCategory' => rand(1, 5),
         ]);
     }
 }
