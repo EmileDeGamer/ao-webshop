@@ -52,12 +52,17 @@
             <?php
                 $orders = Session::get('orders');
                 for ($i=0; $i < count($orders); $i++) {
-                    var_dump($orders[$i]->orderedPrice);
+                    echo("Price: ".$orders[$i]->orderedPrice);
                     echo "<br>";
                     for ($x=0; $x < count($orders[$i]->orders); $x++) {
-                        echo "<li>";
-                            var_dump($orders[$i]->orders[$x]);
-                        echo "</li>";
+                        foreach ($orders[$i]->orders[$x] as $key => $value) {
+                            foreach ($orders[$i]->orders[$x][$key] as $key => $value) {
+                                if($key != 'orderedPrice'){
+                                    echo $key . ": " . $value;
+                                    echo "<br>";
+                                }
+                            }
+                        }
                     }
                 }
             ?>
