@@ -1,0 +1,39 @@
+body{
+    margin: auto;
+}
+
+header{
+    ul{
+        padding: 0;
+        list-style: none;
+    }
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    #left{
+        grid-column: 1;
+    }
+    #middle{
+        grid-column: 2;
+    }
+    #right{
+        grid-column: 3;
+        #cart{
+            position: relative;
+            display: inline-block;
+        }
+
+        #cartItems{
+            display: none;
+            position: absolute;
+            z-index: 1;
+        }
+
+        #cart:hover #cartItems{
+            display: block;
+        }
+    }
+}
+
+footer{
+    text-align: center;
+}

@@ -1,0 +1,50 @@
+body {
+  margin: auto;
+}
+
+header {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[3];
+      grid-template-columns: repeat(3, auto);
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+}
+
+header #left {
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+header #middle {
+  -ms-grid-column: 2;
+  grid-column: 2;
+}
+
+header #right {
+  -ms-grid-column: 3;
+  grid-column: 3;
+}
+
+header #right #cart {
+  position: relative;
+  display: inline-block;
+}
+
+header #right #cartItems {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+header #right #cart:hover #cartItems {
+  display: block;
+}
+
+footer {
+  text-align: center;
+}
+/*# sourceMappingURL=style.css.map */

@@ -8,20 +8,40 @@ use App\Http\Controllers\ProductsController;
 class CartController extends Controller
 {
     static $availableProducts = [];
-    public $products = [];
 
     public function createCart(Request $request){
         $productsController = new ProductsController();
         $productsController->getProducts();
-        $this->products = CartController::$availableProducts;
-        $request->session()->put('cart', $this->products);
+        $request->session()->put('cart', []);
+        $request->session()->put('cartCost', 0);
         return view('index');
     }
 
-    public function addProductToCart($request, $product, $amount = 1){
-        $product->amount = $amount;
-        array_push($this->products, $product);
-        $request->session()->put('cart', $this->products);
+    public function addProductToCart(Request $request){
+        $productsController = new ProductsController();
+        $productsController->getProducts();
+        for ($i=0; $i < count(CartController::$availableProducts); $i++) {
+            if(CartController::$availableProducts[$i]->productName === $request->input('productName')){
+                $product = CartController::$availableProducts[$i];
+            }
+        }
+        $product->amount = $request->input('productAmount');
+        $products = $request->session()->get('cart');
+        array_push($products, $product);
+        $request->session()->put('cart', $products);
+        $this->calculateCartValue($request);
+        return redirect('categories');
+    }
+
+    public function calculateCartValue(Request $request){
+        $products = $request->session()->get('cart');
+        $cost = 0;
+        for ($i=0; $i < count($products); $i++) {
+            for ($x=0; $x < $products[$i]->amount; $x++) {
+                $cost += $products[$i]->productPrice;
+            }
+        }
+        $request->session()->put('cartCost', $cost);
     }
 
     public function removeProductFromCart($product, $amount = 1){
