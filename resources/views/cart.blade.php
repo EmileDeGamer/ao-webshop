@@ -53,7 +53,7 @@
             <?php
                 $orders = Session::get('orders');
                 for ($i=0; $i < count($orders); $i++) {
-                    echo("Price: ".$orders[$i]->orderedPrice);
+                    echo("Price: €".$orders[$i]->orderedPrice);
                     echo "<br>";
                     for ($x=0; $x < count($orders[$i]->orders); $x++) {
                         foreach ($orders[$i]->orders[$x] as $key => $value) {
