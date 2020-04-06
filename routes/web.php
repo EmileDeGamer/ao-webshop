@@ -19,3 +19,4 @@ Route::post('/showProduct', 'ProductsController@showProduct');
 Route::post('/addToCart', 'CartController@addProductToCart');
 Route::post('/deleteFromCart', 'CartController@removeProductFromCart');
 Route::get('/cart', 'CartController@showCart');
+Route::post('/editCart', 'CartController@editProductAmountInCart');

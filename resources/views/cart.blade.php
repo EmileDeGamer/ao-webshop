@@ -34,16 +34,10 @@
                 <?php
                 }
             ?>
-            <tr>Totaal:
-                <?php
-                    $cost = 0;
-                    for ($i=0; $i < count($cart); $i++) {
-                        for ($x=0; $x < $cart[$i]->amount; $x++) {
-                            $cost += $cart[$i]->productPrice;
-                        }
-                    }
-                ?>
-                {{$cost}}
+            <tr>
+                <td>
+                    Totaal: €{{Session::get('cartCost')}}
+                </td>
             </tr>
         @endif
     </table>

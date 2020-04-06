@@ -56,9 +56,16 @@ class CartController extends Controller
         return back();
     }
 
-    public function editProductAmountInCart($product, $amount = 1){
-        $this->products[$product]->amount = $amount;
-        $request->session()->put('cart', $this->products);
+    public function editProductAmountInCart(Request $request){
+        $products = $request->session()->get('cart');
+        for ($i=0; $i < count($products); $i++) {
+            if($products[$i]->productName === $request->input('productName')){
+                $products[$i]->amount = $request->input('productAmount');
+            }
+        }
+        $request->session()->put('cart', $products);
+        $this->calculateCartValue($request);
+        return back();
     }
 
     public function showCart(Request $request){
