@@ -10,7 +10,7 @@
         ?>
     </ul>
 @endif
-<form action="{{$_SERVER['PHP_SELF']}}" method="post">
+<form action="/register" method="post">
     @csrf
 <div>
     <label for="name">Name:</label>
@@ -34,9 +34,4 @@
     <button type="submit">Register</button>
 </div>
 </form>
-
-<?php
-
-?>
-
 @endsection

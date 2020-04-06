@@ -16,10 +16,15 @@
 
             </ul>
             <ul id="right">
+                @if(Session::has('customer'))
+                    <?php $user = Session::get('customer') ?>
+                    <span>{{$user['name']}}</span>
+                @endif
+                @if(Session::has('customer'))
                 <a href="/cart" id="cart">
                     Cart
                     <ul id="cartItems">
-                        @if(Session::has('cart'))
+                        @if(Session::has('cart') && Session::has('customer'))
                             <?php
                                 $cart = Session::get('cart');
                                 for ($i=0; $i < count($cart); $i++) {
@@ -27,7 +32,7 @@
                                 }
                             ?>
                         @endif
-                        @if(Session::has('cartCost'))
+                        @if(Session::has('cartCost') && Session::has('customer'))
                             <?php
                                 $cost = Session::get('cartCost');
                                 echo "<li>Price:".$cost."</li>";
@@ -35,6 +40,10 @@
                         @endif
                     </ul>
                 </a>
+                @endif
+                @if(Session::has('customer'))
+                    <a href="/logout">Logout</a>
+                @endif
             </ul>
         </header>
         @yield('content')
