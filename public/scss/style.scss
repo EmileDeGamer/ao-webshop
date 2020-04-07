@@ -17,6 +17,7 @@ header{
     }
     #middle{
         grid-column: 2;
+        text-align: center;
     }
     #right{
         grid-column: 3;
@@ -29,11 +30,104 @@ header{
             display: none;
             position: absolute;
             z-index: 1;
+            border: 1px solid black;
+            background: black;
+            min-width: 250px;
+            button{
+                border: none !important;
+                margin: auto;
+                background: black;
+                color: white;
+                padding: 0;
+                text-align: left;
+            }
+            button:hover{
+                color: red;
+            }
         }
 
         #cart:hover #cartItems{
-            display: block;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
         }
+    }
+}
+
+#categoriesSelectionDisplay{
+    display: grid;
+    grid-template-rows: 0;
+    grid-template-columns: repeat(2, auto);
+    span{
+        text-align: right;
+    }
+    select{
+        grid-column: 2;
+        width: 25%;
+    }
+}
+
+h1{
+    text-align: center;
+}
+
+form{
+    margin: auto;
+    text-align: center;
+    div{
+        padding: 10px;
+    }
+    button{
+        margin: 10px;
+        padding: 5px 25px;
+    }
+}
+
+a{
+    color: black;
+    text-decoration: none;
+    border: none !important;
+    border-radius: 0 !important;
+}
+a:hover{
+    color: green;
+}
+
+button{
+    background:white;
+    border:1px solid black;
+    border-radius: 15px;
+}
+button:hover{
+    background:green;
+}
+
+table{
+    margin: auto;
+}
+
+#categoriesTable{
+    margin: auto;
+    tbody{
+        display:grid;
+        grid-template-columns: repeat(6, auto);
+    }
+}
+
+#ordersDisplay{
+    margin: auto;
+    text-align: center;
+    display:grid;
+    grid-gap: 50px 0;
+    grid-template-columns: repeat(3, auto);
+    span{
+        grid-row: 1;
+        grid-column: 1/4;
+    }
+    li{
+        margin: auto;
+        border: 1px solid black;
+        width: 50%;
+        height: 100%;
     }
 }
 

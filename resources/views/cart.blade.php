@@ -14,7 +14,7 @@
                     ?>
                     <tr>
                         <td>{{$cart[$i]->productName}}</td>
-                        <td>€{{$cart[$i]->amount}} * {{$cart[$i]->productPrice}} = {{$cart[$i]->productPrice * $cart[$i]->amount}}</td>
+                        <td>{{$cart[$i]->amount}} * €{{$cart[$i]->productPrice}} = €{{$cart[$i]->productPrice * $cart[$i]->amount}}</td>
                         <td>
                             <form action='/editCart' method='post'>
                                 @csrf
@@ -48,11 +48,12 @@
         @endif
     </table>
     @if(Session::has('orders'))
-        <ul>
-            Orders: <br>
+        <ul id="ordersDisplay">
+            <span>Orders:</span>
             <?php
                 $orders = Session::get('orders');
                 for ($i=0; $i < count($orders); $i++) {
+                    echo "<li>";
                     echo("Price: €".$orders[$i]->orderedPrice);
                     echo "<br>";
                     for ($x=0; $x < count($orders[$i]->orders); $x++) {
@@ -65,6 +66,7 @@
                             }
                         }
                     }
+                    echo "</li>";
                 }
             ?>
         </ul>

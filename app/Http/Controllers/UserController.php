@@ -15,7 +15,7 @@ class UserController extends Controller
         }
     }
 
-    function indexRegister(){
+    function indexRegister(Request $request){
         if($request->session()->has('customer')){
             return redirect('/');
         }

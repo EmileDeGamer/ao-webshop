@@ -1,6 +1,9 @@
 @extends('./layout')
 
 @section('content')
+<h1>
+    Register
+</h1>
 @if(Session::has('errors'))
     <ul id="errors">
         <?php

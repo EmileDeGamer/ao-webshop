@@ -13,7 +13,7 @@
 
             </ul>
             <ul id="middle">
-
+                <a href="/">Products</a>
             </ul>
             <ul id="right">
                 @if(Session::has('customer'))
