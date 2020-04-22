@@ -10,23 +10,23 @@
         @if(Session::has('cart'))
             <?php
                 $cart = Session::get('cart');
-                for ($i=0; $i < count($cart); $i++) {
+                for ($i=0; $i < count($cart->products); $i++) {
                     ?>
                     <tr>
-                        <td>{{$cart[$i]->productName}}</td>
-                        <td>{{$cart[$i]->amount}} * €{{$cart[$i]->productPrice}} = €{{$cart[$i]->productPrice * $cart[$i]->amount}}</td>
+                        <td>{{$cart->products[$i]->productName}}</td>
+                        <td>{{$cart->products[$i]->amount}} * €{{$cart->products[$i]->productPrice}} = €{{$cart->products[$i]->productPrice * $cart->products[$i]->amount}}</td>
                         <td>
                             <form action='/editCart' method='post'>
                                 @csrf
-                                <input type='hidden' name='productName' value="{{$cart[$i]->productName}}">
-                                <input type='number' name='productAmount' min="1" value="{{$cart[$i]->amount}}">
+                                <input type='hidden' name='productName' value="{{$cart->products[$i]->productName}}">
+                                <input type='number' name='productAmount' min="1" value="{{$cart->products[$i]->amount}}">
                                 <button type='submit'>Edit amount</button>
                             </form>
                         </td>
                         <td>
                             <form action='/deleteFromCart' method='post'>
                                 @csrf
-                                <input type='hidden' name='productName' value="{{$cart[$i]->productName}}">
+                                <input type='hidden' name='productName' value="{{$cart->products[$i]->productName}}">
                                 <button type='submit'>X</button>
                             </form>
                         </td>
@@ -36,7 +36,7 @@
             ?>
             <tr>
                 <td>
-                    Totaal: €{{Session::get('cartCost')}}
+                    Totaal: € {{$cart->price}}
                 </td>
                 <td>
                     <form action='/placeOrder' method='post'>

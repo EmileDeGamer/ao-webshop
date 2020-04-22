@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Auth;
+use App\Http\Middleware\NotAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +15,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'CategoryController@getCategoriesAndProducts');
-Route::post('/showProduct', 'ProductsController@showProduct');
-Route::post('/addToCart', 'CartController@addProductToCart');
-Route::post('/deleteFromCart', 'CartController@removeProductFromCart');
-Route::get('/cart', 'CartController@showCart');
-Route::post('/editCart', 'CartController@editProductAmountInCart');
-Route::get('/logout', 'UserController@logout');
-Route::post('/placeOrder', 'CartController@placeOrder');
-Route::get('/register', 'UserController@indexRegister');
-Route::get('/login', 'UserController@indexLogin');
-Route::post('/register', 'UserController@register');
-Route::post('/login', 'UserController@login');
 
+
+Route::middleware([Auth::class])->group(function(){
+    Route::get('/', 'ProductsController@getProductsAndCategories');
+    Route::get('/logout', 'UserController@logoutUser');
+    Route::post('/showProduct', 'ProductsController@showProduct');
+    Route::post('/addToCart', 'CartController@addProductToCart');
+    Route::post('/deleteFromCart', 'CartController@removeProductFromCart');
+    Route::get('/cart', function(){
+        return view('cart');
+    });
+    Route::post('/editCart', 'CartController@editProduct');
+    Route::post('/placeOrder', 'CartController@placeOrder');
+});
+
+Route::middleware([NotAuth::class])->group(function(){
+    Route::get('/login', function(){
+        return view('login');
+    });
+
+    Route::get('/register', function(){
+        return view('register');
+    });
+
+    Route::post('/register', 'UserController@registerUser');
+    Route::post('/login', 'UserController@loginUser');
+});
