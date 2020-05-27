@@ -14,8 +14,4 @@ class User extends Model
         $cart = $cart->getCart($request);
         return $cart;
     }
-
-    public function getUser(Request $request){
-        return $request->session()->get('user');
-    }
 }

@@ -8,13 +8,6 @@ use App\Http\Controllers\CartController;
 
 class UserController extends Controller
 {
-    /*public function createNewUser(Request $request){
-        $user = new User($request);
-        $cart = $user->getCart($request);
-        $userData = $user->getUser($request);
-        return view('index', ['user'=>$userData, 'cart'=>$cart]);
-    }*/
-
     public function loginUser(Request $request){
         $errors = [];
         $user = \DB::table('users')->select('name', 'email', 'password')->where('email' , '=', $request->input('email'))->first();

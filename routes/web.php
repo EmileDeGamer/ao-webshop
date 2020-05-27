@@ -15,8 +15,6 @@ use App\Http\Middleware\NotAuth;
 |
 */
 
-
-
 Route::middleware([Auth::class])->group(function(){
     Route::get('/', 'ProductsController@getProductsAndCategories');
     Route::get('/logout', 'UserController@logoutUser');
@@ -38,7 +36,6 @@ Route::middleware([NotAuth::class])->group(function(){
     Route::get('/register', function(){
         return view('register');
     });
-
     Route::post('/register', 'UserController@registerUser');
     Route::post('/login', 'UserController@loginUser');
 });
