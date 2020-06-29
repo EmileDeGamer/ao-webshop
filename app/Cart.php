@@ -81,4 +81,8 @@ class Cart extends CartBase
     public function getCart(Request $request){
         return $request->session()->get('cart');
     }
+
+    public function saveCart(Request $request, $cart){
+        $request->session()->put('cart', $cart);
+    }
 }

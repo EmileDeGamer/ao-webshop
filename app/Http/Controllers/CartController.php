@@ -14,8 +14,8 @@ class CartController extends Controller
         $cart = new Cart($request);
         $product = $cart->getSpecificProduct($request->input('productName'));
         $product->amount = $request->input('productAmount');
-        $cart = $cart->addProduct($product, $cartItems);
-        $request->session()->put('cart', $cart);
+        $cartWithNewProducts = $cart->addProduct($product, $cartItems);
+        $cart->saveCart($request, $cartWithNewProducts);
         return redirect('/');
     }
 
@@ -24,8 +24,8 @@ class CartController extends Controller
         $cartItems = $user->getCart($request);
         $cart = new Cart($request);
         $product = $cart->getSpecificProduct($request->input('productName'), $cart);
-        $cart = $cart->removeProduct($product, $cartItems);
-        $request->session()->put('cart', $cart);
+        $cartWithNewProducts = $cart->removeProduct($product, $cartItems);
+        $cart->saveCart($request, $cartWithNewProducts);
         return back();
     }
 
@@ -35,8 +35,8 @@ class CartController extends Controller
         $cart = new Cart($request);
         $product = $cart->getSpecificProduct($request->input('productName'), $cart);
         $product->amount = $request->input('productAmount');
-        $cart = $cart->editProduct($product, $cartItems);
-        $request->session()->put('cart', $cart);
+        $cartWithNewProducts = $cart->editProduct($product, $cartItems);
+        $cart->saveCart($request, $cartWithNewProducts);
         return back();
     }
 
