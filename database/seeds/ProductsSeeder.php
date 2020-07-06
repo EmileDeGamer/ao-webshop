@@ -11,10 +11,10 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert([
+        App\Product::create([
             'productName' => Str::random(10),
             'productPrice' => rand(1, 150),
-            'productCategory' => rand(1, 5),
+            'productCategory' => rand(1, 5)
         ]);
     }
 }

@@ -60,16 +60,9 @@ class Cart extends CartBase
         return $cart;
     }
 
-    public function getAvailableProducts(){
-        $products = \DB::table('products')->select('productName', 'productPrice', 'productCategory')->get();
-        for ($i=0; $i < count($products); $i++) {
-            $products[$i]->amount = 0;
-        }
-        return $products;
-    }
-
     public function getSpecificProduct($productName){
-        $products = $this->getAvailableProducts();
+        $products = new \App\Product;
+        $products = $products->getAvailableProducts();
         for ($i=0; $i < count($products); $i++) { 
             if($products[$i]->productName === $productName){
                 return $products[$i];

@@ -11,8 +11,8 @@ class CategorySeeder extends Seeder
      */
     public function run($category)
     {
-        DB::table('categories')->insert([
-            'categoryName' => $category,
+        App\Category::create([
+            'categoryName' => $category
         ]);
     }
 }

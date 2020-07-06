@@ -10,7 +10,8 @@ class UserController extends Controller
 {
     public function loginUser(Request $request){
         $errors = [];
-        $user = \DB::table('users')->select('name', 'email', 'password')->where('email' , '=', $request->input('email'))->first();
+        $user = new \App\User;
+        $user = $user->getUser($request);
         if(!$user){
             array_push($errors, 'User doesn\'t exist');
             return back()->with(['email'=>$request->input('email'), 'errors'=>$errors]);
@@ -45,7 +46,8 @@ class UserController extends Controller
         }
         if(count($errors) === 0){
             $hash = \Hash::make($request->input('password'));
-            \DB::table('users')->insert(['name'=>$request->input('name'), 'email'=>$request->input('email'), 'password'=>$hash]);
+            $user = new \App\User;
+            $user->createNewUser($request, $hash);
             $request->session()->put('user', ['name'=>$request->input('name')]);
             CartController::getOrders($request);
             return redirect('/');

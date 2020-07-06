@@ -42,9 +42,10 @@ class CartController extends Controller
 
     public function placeOrder(Request $request){
         if(count($request->session()->get('cart')->products) > 0){
-            $inserted = \DB::table('orders')->insertGetId(['orderedUser'=>$request->session()->get('user')['name'], 'orderedPrice'=>$request->session()->get('cart')->price]);
+            $order = new \App\Order;
+            $insertedID = $order->createOrderAndGetID($request);
             for ($i=0; $i < count($request->session()->get('cart')->products); $i++) {
-                \DB::table('ordered_products')->insert(['orderedProduct'=>$request->session()->get('cart')->products[$i]->productName,'orderedAmount'=>$request->session()->get('cart')->products[$i]->amount,'orderID'=>$inserted]);
+                $order->addOrderedProduct($request, $insertedID, $i);
             }
             $request->session()->forget('cart');
             $user = new User();
@@ -58,8 +59,9 @@ class CartController extends Controller
     }
 
     public static function getOrders(Request $request){
-        $orders = \DB::table('orders')->select('ordered_products.orderedProduct', 'ordered_products.orderedAmount', 'orders.orderedPrice')->join('ordered_products', 'ordered_products.orderID', '=', 'orders.orderID')->where('orders.orderedUser', '=', $request->session()->get('user')['name'])->get();
-        $orderedPrices = \DB::table('orders')->select('orderedPrice')->where('orderedUser', '=', $request->session()->get('user')['name'])->get();
+        $order = new \App\Order;
+        $orders = $order->getOrdersByName($request);
+        $orderedPrices = $order->getOrderPricesByUser($request);
         for ($i=0; $i < count($orderedPrices); $i++) {
             if(!isset($orderedPrices[$i]->orders)){
                 $orderedPrices[$i]->orders = array();
